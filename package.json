@@ -1,0 +1,23 @@
+{
+  "name": "Magic-Mirror-Module-Dublin-Bus",
+  "version": "1.0.0",
+  "description": "Magic Mirror Module Dublin bus times.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dr4ke616/MMM-Dublin-Bus"
+  },
+  "keywords": [
+    "magic mirror",
+    "smart mirror",
+    "dublin bus",
+    "module"
+  ],
+  "author": "Adam Drakeford",
+  "contributors": "https://github.com/dr4ke616/MMM-Dublin-Bus/graphs/contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dr4ke616/MMM-Dublin-Bus/issues"
+  },
+  "homepage": "https://github.com/dr4ke616/MMM-Dublin-Bus#readme",
+  "dependencies": {}
+}
