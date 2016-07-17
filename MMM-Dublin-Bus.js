@@ -5,39 +5,31 @@ Module.register("MMM-Dublin-Bus", {
 		language: "en",
 		stopNumber: 2188,
 		initialLoadDelay: 0,
-		updateInterval: 45000  // 45 Seconds
+		updateInterval: 10000  // 10 Seconds
 	},
 
 	getScripts: function() {
 		return ['moment.js']
 	},
 
-	// Define required scripts.
-	getStyles: function() {
-		return ["style.css"];
-	},
-
-	// Override dom generator.
-	getDom: function() {
-		var wrapper = document.createElement("div");
-		wrapper.className = "small light";
-		//wrapper.innerHTML = this.interimResult;
-		return wrapper;
-	},
-
 	// Override socket notification handler.
 	socketNotificationReceived: function(notification, payload) {
-		if (notification === "DUBLIN_BUS_TIMES") {
+		if (notification === "DUBLINBUS_TIMES_RECIEVED") {
 			this.onDataRecieved(payload);
-		} else if (notification === "DUBLIN_BUS_TIMES_UNAVAILABLE") {
+		} else if (notification === "DUBLINBUS_TIMES_UNAVAILABLE") {
 			Log.error("Dublin bus times not available :(. Response code: " + payload);
-		} else if (notification === "INCORRECT_URL") {
+		} else if (notification === "DUBLINBUS_TIMES_FAILURE_INVALID_URL") {
 			Log.error("Issue with your url: " + payload);
 		}
 	},
 
 	onDataRecieved: function(data) {
-		Log.info("here " + data);
+		this.sendNotification("SHOW_ALERT", {
+			//type: "notification",
+			title: "Bus Times",
+			message: data.join("</p><p>"),
+			position: "center"
+		});
 	},
 
 	start: function() {
@@ -47,7 +39,7 @@ Module.register("MMM-Dublin-Bus", {
 	},
 
 	registerDublinbusWorker: function() {
-		this.sendSocketNotification("START_DUBLINBUS", {
+		this.sendSocketNotification("DUBLINBUS_START", {
 			config: this.config
 		});
 	}

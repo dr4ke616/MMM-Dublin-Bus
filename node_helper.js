@@ -14,12 +14,12 @@ module.exports = NodeHelper.create({
 	},
 
 	socketNotificationReceived: function(notification, payload) {
-		if (notification === "START_DUBLINBUS") {
+		if (notification === "DUBLINBUS_START") {
 			this.config = payload.config
 			this.scheduleUpdate(this.config.initialLoadDelay);
 			console.log("Started dublinbus scheduler")
 			return;
-		} else if (notification === "STOP_DUBLINBUS") {
+		} else if (notification === "DUBLINBUS_STOP") {
 			clearTimeout(this.updateTimer);
 			console.log("Stopped dublinbus scheduler")
 			return;
@@ -44,13 +44,13 @@ module.exports = NodeHelper.create({
 		var self = this;
 
 		if (!validUrl.isUri(url)) {
-			self.sendSocketNotification("INCORRECT_URL", url);
+			self.sendSocketNotification("DUBLINBUS_TIMES_FAILURE_INVALID_URL", url);
 			return;
 		}
 
 		https.get(url, (resp) => {
 			if (resp.statusCode != 200) {
-				self.sendSocketNotification("DUBLIN_BUS_TIMES_UNAVAILABLE", resp.statusCode);
+				self.sendSocketNotification("DUBLINBUS_TIMES_UNAVAILABLE", resp.statusCode);
 				return;
 			}
 
@@ -91,7 +91,7 @@ module.exports = NodeHelper.create({
 	},
 
 	broadcastDublinbusTimes: function() {
-		this.sendSocketNotification("DUBLIN_BUS_TIMES", this.bustimes);
+		this.sendSocketNotification("DUBLINBUS_TIMES_RECIEVED", this.bustimes);
 	}
 
 });
