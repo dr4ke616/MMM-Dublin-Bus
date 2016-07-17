@@ -26,6 +26,7 @@ modules: [
     {
         module: 'MMM-Dublin-Bus',
         config: {
+            stopNumber: <LOCAL_STOP_NUMBER>
             // See 'Configuration options' for more information.
         }
     }
@@ -36,4 +37,4 @@ modules: [
 
 - Set the `language`, default is set to `en`
 - Set the stop number with the `stopNumber` value. Stop numbers can be found on the [Dublin Bus Route Planner](https://www.dublinbus.ie/Route-Planner/)
-- The `updateInterval` is used to determine the polling frequency of the Dublin Bus API
+- The `updateInterval` is used to determine the polling frequency of the Dublin Bus API. The default is set to 10 seconds.
