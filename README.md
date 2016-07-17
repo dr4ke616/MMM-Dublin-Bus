@@ -35,6 +35,40 @@ modules: [
 
 ## Configuration Options
 
-- Set the `language`, default is set to `en`
-- Set the stop number with the `stopNumber` value. Stop numbers can be found on the [Dublin Bus Route Planner](https://www.dublinbus.ie/Route-Planner/)
-- The `updateInterval` is used to determine the polling frequency of the Dublin Bus API. The default is set to 10 seconds.
+The following properties can be configured:
+
+<table width="100%">
+	<thead>
+		<tr>
+			<th>Option</th>
+			<th width="100%">Description</th>
+		</tr>
+	<thead>
+	<tbody>
+
+		<tr>
+			<td><code>language</code></td>
+			<td>The language used.<br>
+				<br><b>Example:</b> <code>en</code>
+				<br><b>Default value:</b> <code>en</code>
+			</td>
+		</tr>
+
+		<tr>
+			<td><code>stopNumber</code></td>
+			<td>Stop numbers can be found on the <a href="https://www.dublinbus.ie/Route-Planner/">Dublin Bus Route Planner</a>.<br>
+				<br><b>Possible Values:</b> <code>int</code> value
+				<br><b>Default value:</b> No default value
+			</td>
+		</tr>
+
+		<tr>
+			<td><code> updateInterval </code></td>
+			<td>Polling frequency of the Dublin Bus API.<br>
+				<br><b>Possible Values:</b> <code>int</code>, <code>float</code> value
+				<br><b>Default value:</b> <code>10000</code> (10 seconds)
+			</td>
+		</tr>
+
+	</tbody>
+</table>
