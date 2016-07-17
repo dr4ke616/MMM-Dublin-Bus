@@ -3,7 +3,6 @@ Module.register("MMM-Dublin-Bus", {
 	// Default module config.
 	defaults: {
 		language: "en",
-		stopNumber: 2188,
 		initialLoadDelay: 0,
 		updateInterval: 10000  // 10 Seconds
 	},
