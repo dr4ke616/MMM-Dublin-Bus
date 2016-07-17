@@ -63,7 +63,7 @@ The following properties can be configured:
 		</tr>
 
 		<tr>
-			<td><code> updateInterval </code></td>
+			<td><code>updateInterval</code></td>
 			<td>Polling frequency of the Dublin Bus API.<br>
 				<br><b>Possible Values:</b> <code>int</code>, <code>float</code> value
 				<br><b>Default value:</b> <code>10000</code> (10 seconds)
