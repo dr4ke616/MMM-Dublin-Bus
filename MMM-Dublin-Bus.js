@@ -17,9 +17,21 @@ Module.register("MMM-Dublin-Bus", {
 		if (notification === "DUBLINBUS_TIMES_RECIEVED") {
 			this.onDataRecieved(payload);
 		} else if (notification === "DUBLINBUS_TIMES_UNAVAILABLE") {
-			Log.error("Dublin bus times not available :(. Response code: " + payload);
-		} else if (notification === "DUBLINBUS_TIMES_FAILURE_INVALID_URL") {
-			Log.error("Issue with your url: " + payload);
+			this.onDataRecieved(["Dublin bus times not available :("]);
+		} else if (notification === "DUBLINBUS_TIMES_UNKNOWN_ERROR") {
+			this.onDataRecieved(["Unknown error with Dublin Bus :("]);
+		}
+	},
+
+	notificationReceived: function(notification, payload, sender) {
+		if (sender) {
+			Log.log(this.name + " received a module notification: " + notification + " from sender: " + sender.name);
+			if (notification === "DUBLINBUS_START") {
+				this.registerDublinbusWorker();
+			} else if (notification === "DUBLINBUS_STOP") {
+				this.killDublinbusWorker();
+				this.sendNotification("HIDE_ALERT");
+			}
 		}
 	},
 
@@ -34,12 +46,14 @@ Module.register("MMM-Dublin-Bus", {
 
 	start: function() {
 		Log.info("Starting module: " + this.name);
+	},
 
-		this.registerDublinbusWorker()
+	killDublinbusWorker: function() {
+		this.sendSocketNotification("DUBLINBUS_TIMES_KILL_WORKER");
 	},
 
 	registerDublinbusWorker: function() {
-		this.sendSocketNotification("DUBLINBUS_START", {
+		this.sendSocketNotification("DUBLINBUS_TIMES_START_WORKER", {
 			config: this.config
 		});
 	}
