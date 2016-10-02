@@ -21,8 +21,7 @@ modules: [
         module: 'MMM-Dublin-Bus',
         config: {
             stopNumber: <LOCAL_STOP_NUMBER>,
-            mode: "dom",
-            useNotificationModule: false
+            mode: "dom"
             // See 'Configuration options' for more information.
         }
     }
@@ -44,17 +43,9 @@ The following properties can be configured:
 
 		<tr>
 			<td><code>mode</code></td>
-			<td>The options supported are either <code>dom</code> or <code>alert</code>. This sets how the bus times are to be displayed<br>
+			<td>The options supported are either <code>dom</code> or <code>alert</code>. This sets how the bus times are to be displayed. In <code>alert</code> all times are displayed using Magic-Mirror's notification system. In <code>dom</code> mode it is displayed on the main screen.<br>
 				<br><b>Example:</b> <code>alert</code>
 				<br><b>Default value:</b> <code>dom</code>
-			</td>
-		</tr>
-
-		<tr>
-			<td><code>useNotificationModule</code></td>
-			<td>When set to true, this will allow other modules to interact with MMM-Dublin-Bus by starting or stopping it<br>
-				<br><b>Possible Values:</b> <code>boolean</code> value
-				<br><b>Default value:</b> <code>false</code>
 			</td>
 		</tr>
 

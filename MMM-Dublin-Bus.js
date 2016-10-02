@@ -5,7 +5,6 @@ Module.register("MMM-Dublin-Bus", {
 		language: "en",
 		initialLoadDelay: 0,
 		updateInterval: 10000,  // 10 Seconds
-		useNotificationModule: false,
 		mode: "dom" // or alert
 	},
 
@@ -25,7 +24,10 @@ Module.register("MMM-Dublin-Bus", {
 	},
 
 	notificationReceived: function(notification, payload, sender) {
-		if (sender && this.config.useNotificationModule) {
+		if (notification === "DOM_OBJECTS_CREATED" && this.config.mode === "dom") {
+			this.registerDublinbusWorker();
+		}
+		if (sender) {
 			Log.log(this.name + " received a module notification: " + notification + " from sender: " + sender.name);
 			if (notification === "DUBLINBUS_START") {
 				this.registerDublinbusWorker();
@@ -36,13 +38,21 @@ Module.register("MMM-Dublin-Bus", {
 		}
 	},
 
+	suspend: function() {
+		this.killDublinbusWorker();
+	},
+
+	resume: function() {
+		this.registerDublinbusWorker();
+	},
+
 	onDataRecieved: function(data) {
 		if (this.config.mode == "dom") {
-			Log.info("Recieved data, updating dom");
+			Log.info("MMM-Dublin-Bus recieved data, updating dom");
 			this.dublinBusPayload = data;
 			this.updateDom();
 		} else if (this.config.mode == "alert") {
-			Log.info("Recieved data, sending alert");
+			Log.info("MMM-Dublin-Bus recieved data, sending alert");
 			this.sendNotification("SHOW_ALERT", {
 				//type: "notification",
 				title: "Bus Times",
@@ -82,10 +92,7 @@ Module.register("MMM-Dublin-Bus", {
 	},
 
 	start: function() {
-		Log.info("Starting module: " + this.name);
-		if (!this.config.useNotificationModule) {
-			this.registerDublinbusWorker()
-		}
+		Log.log("Starting module: " + this.name);
 	},
 
 	killDublinbusWorker: function() {
