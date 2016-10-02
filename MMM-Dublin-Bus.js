@@ -4,7 +4,9 @@ Module.register("MMM-Dublin-Bus", {
 	defaults: {
 		language: "en",
 		initialLoadDelay: 0,
-		updateInterval: 10000  // 10 Seconds
+		updateInterval: 10000,  // 10 Seconds
+		useNotificationModule: false,
+		mode: "dom" // or alert
 	},
 
 	getScripts: function() {
@@ -23,7 +25,7 @@ Module.register("MMM-Dublin-Bus", {
 	},
 
 	notificationReceived: function(notification, payload, sender) {
-		if (sender) {
+		if (sender && this.config.useNotificationModule) {
 			Log.log(this.name + " received a module notification: " + notification + " from sender: " + sender.name);
 			if (notification === "DUBLINBUS_START") {
 				this.registerDublinbusWorker();
@@ -35,16 +37,55 @@ Module.register("MMM-Dublin-Bus", {
 	},
 
 	onDataRecieved: function(data) {
-		this.sendNotification("SHOW_ALERT", {
-			//type: "notification",
-			title: "Bus Times",
-			message: data.join("</p><p>"),
-			position: "center"
-		});
+		if (this.config.mode == "dom") {
+			Log.info("Recieved data, updating dom");
+			this.dublinBusPayload = data;
+			this.updateDom();
+		} else if (this.config.mode == "alert") {
+			Log.info("Recieved data, sending alert");
+			this.sendNotification("SHOW_ALERT", {
+				//type: "notification",
+				title: "Bus Times",
+				message: data.join("</p><p>"),
+				position: "center"
+			});
+		} else {
+			throw "Exception: 'mode' settings in config must be either 'alert' or 'dom'";
+		}
+	},
+
+	// Override dom generator.
+	getDom: function() {
+		var wrapper = document.createElement("div");
+		if (this.config.mode == "alert") {
+			// If its configured to use internal alerts, we dont want to update the DOM tree
+			return wrapper;
+		}
+
+		var title = document.createElement("div");
+		title.className = "bright";
+		title.innerHTML = "Dublin Bus Times:";
+
+		var container = document.createElement("div");
+		container.className = "normal medium";
+
+		if (this.dublinBusPayload === undefined)
+			container.innerHTML = "Hmm... Bus times unavailable :(";
+		else {
+			container.innerHTML = this.dublinBusPayload.join("</p><p>");
+		}
+
+		wrapper.appendChild(title)
+		wrapper.appendChild(container);
+
+		return wrapper;
 	},
 
 	start: function() {
 		Log.info("Starting module: " + this.name);
+		if (!this.config.useNotificationModule) {
+			this.registerDublinbusWorker()
+		}
 	},
 
 	killDublinbusWorker: function() {

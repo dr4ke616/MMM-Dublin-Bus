@@ -1,32 +1,28 @@
 # MMM-Dublin-Bus
 Magic Mirror Module - Dublin Bus
 
-This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror). Displays bus times for a configurable stop. This uses the [Dublin Bus API](https://data.gov.ie/dataset/real-time-passenger-information-rtpi-for-dublin-bus-bus-eireann-luas-and-irish-rail), therefor is only useful within Dublin, Ireland.
-
-This module is intended to be activated and deactivated from the use of other Smart Mirror Modules, using Smart Mirror's notification module. Dublin Bus API most likely has rate limiting in place, so having the module being displayed on the main page of the Smart Mirror constantly calling the API could cause problems.
-
-To get around this, MMM-Dublin-Bus module makes use of Smart Mirror's default alert module to display Dublin bus times. This can be triggered on or off from other modules by sending the notifications `DUBLINBUS_START` and `DUBLINBUS_STOP`. Currently this module is integrated and works with [MMM-Voice-Control](https://github.com/dr4ke616/MMM-Voice-Control) 
+This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror). It displays bus times for a configurable stop. This uses the [Dublin Bus API](https://data.gov.ie/dataset/real-time-passenger-information-rtpi-for-dublin-bus-bus-eireann-luas-and-irish-rail), therefor is only useful within Dublin, Ireland. Warning when using this module. There may be API rate limiting in place as it is a free to use API.
 
 ## Installation
-1. Navigate into your MagicMirror's `modules` folder and execute
 
-```bash
-git clone https://github.com/dr4ke616/MMM-Dublin-Bus.git
-```
-
-2. Execute `npm install` to install the node dependencies.
-4. Start magic mirror
+- Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/dr4ke616/MMM-Dublin-Bus.git`.
+- Configure the module as mentioned below.
+- Start magic mirror
 
 ## Using the module
 
-To use this module, add it to the modules array in the `config/config.js` file:
+This module can display times either through Magic Mirror's Dom tree or through using Magic Mirror's alert module. This module can also be started or stopped using Magic Mirror's internal notification system, so that other modules can control it. The two notifications MMM-Dublin-Bus will listen to are `DUBLINBUS_START` and `DUBLINBUS_STOP`.
+
+Once installed, to use it add it to the modules array in the `config/config.js` file:
 
 ```javascript
 modules: [
     {
         module: 'MMM-Dublin-Bus',
         config: {
-            stopNumber: <LOCAL_STOP_NUMBER>
+            stopNumber: <LOCAL_STOP_NUMBER>,
+            mode: "dom",
+            useNotificationModule: false
             // See 'Configuration options' for more information.
         }
     }
@@ -45,6 +41,22 @@ The following properties can be configured:
 		</tr>
 	<thead>
 	<tbody>
+
+		<tr>
+			<td><code>mode</code></td>
+			<td>The options supported are either <code>dom</code> or <code>alert</code>. This sets how the bus times are to be displayed<br>
+				<br><b>Example:</b> <code>alert</code>
+				<br><b>Default value:</b> <code>dom</code>
+			</td>
+		</tr>
+
+		<tr>
+			<td><code>useNotificationModule</code></td>
+			<td>When set to true, this will allow other modules to interact with MMM-Dublin-Bus by starting or stopping it<br>
+				<br><b>Possible Values:</b> <code>boolean</code> value
+				<br><b>Default value:</b> <code>true</code>
+			</td>
+		</tr>
 
 		<tr>
 			<td><code>language</code></td>
