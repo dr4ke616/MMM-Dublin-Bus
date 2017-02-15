@@ -1,7 +1,8 @@
 
 var NodeHelper = require("node_helper");
 var validUrl = require("valid-url");
-var https = require('https')
+var https = require('https');
+require('ssl-root-cas').inject();
 
 module.exports = NodeHelper.create({
 

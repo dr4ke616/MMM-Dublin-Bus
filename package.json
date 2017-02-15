@@ -19,5 +19,7 @@
     "url": "https://github.com/dr4ke616/MMM-Dublin-Bus/issues"
   },
   "homepage": "https://github.com/dr4ke616/MMM-Dublin-Bus#readme",
-  "dependencies": {}
+  "dependencies": {
+    "ssl-root-cas": "1.2.3"
+  }
 }

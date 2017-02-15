@@ -6,6 +6,7 @@ This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror)
 ## Installation
 
 - Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/dr4ke616/MMM-Dublin-Bus.git`.
+- Install the dependancies with `npm install`
 - Configure the module as mentioned below.
 - Start magic mirror
 
