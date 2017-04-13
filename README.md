@@ -31,48 +31,10 @@ modules: [
 
 ## Configuration Options
 
-The following properties can be configured:
+The following properties can be configured, as well as any of the default Magic Mirror configuration [settings](https://github.com/MichMich/MagicMirror#configuration).
 
-<table width="100%">
-	<thead>
-		<tr>
-			<th>Option</th>
-			<th width="100%">Description</th>
-		</tr>
-	<thead>
-	<tbody>
-
-		<tr>
-			<td><code>mode</code></td>
-			<td>The options supported are either <code>dom</code> or <code>alert</code>. This sets how the bus times are to be displayed. In <code>alert</code> all times are displayed using Magic-Mirror's notification system. In <code>dom</code> mode it is displayed on the main screen.<br>
-				<br><b>Example:</b> <code>alert</code>
-				<br><b>Default value:</b> <code>dom</code>
-			</td>
-		</tr>
-
-		<tr>
-			<td><code>language</code></td>
-			<td>The language used.<br>
-				<br><b>Example:</b> <code>en</code>
-				<br><b>Default value:</b> <code>en</code>
-			</td>
-		</tr>
-
-		<tr>
-			<td><code>stopNumber</code></td>
-			<td>Stop numbers can be found on the <a href="https://www.dublinbus.ie/Route-Planner/">Dublin Bus Route Planner</a>.<br>
-				<br><b>Possible Values:</b> <code>int</code> value
-				<br><b>Default value:</b> No default value
-			</td>
-		</tr>
-
-		<tr>
-			<td><code>updateInterval</code></td>
-			<td>Polling frequency of the Dublin Bus API.<br>
-				<br><b>Possible Values:</b> <code>int</code>, <code>float</code> value
-				<br><b>Default value:</b> <code>10000</code> (10 seconds)
-			</td>
-		</tr>
-
-	</tbody>
-</table>
+| Option 			| Default 			| Description 																																																								|
+|-------------------|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`mode`				| `dom`				|The options supported are either `dom` or `alert`. This sets how the bus times are to be displayed. In `alert` mode all times are displayed using Magic-Mirror's notification system. In `dom` mode it is displayed on the main screen 	|
+|`stopNumber` 		| No default value 	|Stop numbers can be found on the [Dublin Bus Route Planner](https://www.dublinbus.ie/Route-Planner/)																																		|
+|`updateInterval` 	| `10000` 			|An `int` value to set the API polling interval in seconds																																													|
