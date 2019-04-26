@@ -41,7 +41,7 @@ module.exports = NodeHelper.create({
 	},
 
 	callDublinBus: function() {
-		url = 'https://data.dublinked.ie/cgi-bin/rtpi/realtimebusinformation?stopid=' + this.config.stopNumber;
+		url = 'https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=' + this.config.stopNumber;
 		var self = this;
 
 		if (!validUrl.isUri(url)) {
