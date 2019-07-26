@@ -12,7 +12,7 @@ This an extension for the [MagicMirror](https://github.com/MichMich/MagicMirror)
 
 ## Using the module
 
-This module can display times either through Magic Mirror's Dom tree or through using Magic Mirror's alert module. It can started or stopped using Magic Mirror's internal notification system, enabling the ability for other modules to control when it reads off Dublin Bus' API. The two notifications MMM-Dublin-Bus will listen to are `DUBLINBUS_START` and `DUBLINBUS_STOP`.
+This module can display times either through Magic Mirror's Dom tree or through using Magic Mirror's alert module. It can started or stopped using Magic Mirror's internal notification system, enabling the ability for other modules to control when it reads off Dublin Bus' API. The two notifications MMM-Dublin-Bus will listen to are `DUBLIN_BUS_START` and `DUBLIN_BUS_STOP`.
 
 Once installed, to use it add it to the modules array in the `config/config.js` file:
 
