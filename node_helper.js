@@ -4,6 +4,8 @@ let https = require('https');
 
 require('ssl-root-cas').inject();
 
+const host = "https://data.smartdublin.ie/";
+
 module.exports = NodeHelper.create({
 
     start: function () {
@@ -18,10 +20,10 @@ module.exports = NodeHelper.create({
         if (notification === "DUBLIN_BUS_TIMES_START_WORKER") {
             this.config = payload.config;
             this.scheduleUpdate(this.config.initialLoadDelay);
-            console.log("Started dublinbus scheduler");
+            console.log("Started dublin bus scheduler");
         } else if (notification === "DUBLIN_BUS_TIMES_STOP_WORKER") {
             clearTimeout(this.updateTimer);
-            console.log("Stopped dublinbus scheduler");
+            console.log("Stopped dublin bus scheduler");
         }
     },
 
@@ -39,7 +41,7 @@ module.exports = NodeHelper.create({
     },
 
     callDublinBus: function () {
-        url = 'https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=' + this.config.stopNumber;
+        let url = `${host}cgi-bin/rtpi/realtimebusinformation?stopid=${this.config.stopNumber}`;
         let self = this;
 
         if (!validUrl.isUri(url)) {
@@ -66,14 +68,13 @@ module.exports = NodeHelper.create({
     },
 
     processData: function (data) {
-        times = [];
 
-        for (let i = 0; i < data.results.length; i++) {
-            let route = data.results[i].route;
-            let duetime = data.results[i].duetime;
+        let times = data.results.map(result => {
+            let route = result.route;
+            let duetime = result.duetime;
 
             if (duetime === "Due") {
-                times.push(route + " is due!");
+                return `${route} is due!`;
             } else {
                 let minsMsg = null;
                 if (duetime === "1") {
@@ -81,9 +82,10 @@ module.exports = NodeHelper.create({
                 } else {
                     minsMsg = "mins";
                 }
-                times.push(route + " - " + duetime + " " + minsMsg);
+                return `${route} - ${duetime} ${minsMsg}`;
             }
-        }
+        });
+
         if (times.length === 0) {
             times.push("There are no bus times available");
         }

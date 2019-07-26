@@ -68,11 +68,11 @@ Module.register("MMM-Dublin-Bus", {
 
     onDataRecieved: function (data) {
         if (this.config.mode === "dom") {
-            Log.info("MMM-Dublin-Bus recieved data, updating dom");
+            Log.info("MMM-Dublin-Bus received data, updating dom");
             this.dublinBusPayload = data;
             this.updateDom();
         } else if (this.config.mode === "alert") {
-            Log.info("MMM-Dublin-Bus recieved data, sending alert");
+            Log.info("MMM-Dublin-Bus received data, sending alert");
             this.sendNotification("SHOW_ALERT", {
                 //type: "notification",
                 title: "Bus Times",
